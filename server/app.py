@@ -83,16 +83,15 @@ import os
 import json
 
 app = Flask(__name__)
-CORS(app, origins='*')
+CORS(app, resources={r"/api/*": {"origins": "*"}})  # ✅ Fix CORS
 
-
-# Path to video folder
+# Video storage path
 VIDEO_FOLDER = os.path.join(os.getcwd(), "videos")
 if not os.path.exists(VIDEO_FOLDER):
     os.makedirs(VIDEO_FOLDER)
 
 # Load word-to-video mapping
-MAPPING_FILE = os.path.join(os.getcwd(), "backend", "video_mapping.json")
+MAPPING_FILE = os.path.join(os.getcwd(), "server", "video_mapping.json")
 if os.path.exists(MAPPING_FILE):
     with open(MAPPING_FILE, "r") as f:
         word_to_video = json.load(f)
@@ -115,11 +114,12 @@ def speech_to_video():
     video_list = []
 
     for word in words:
-        video_file = word_to_video.get(word, f"{word}.mp4")  # Get mapped video or default to word.mp4
+        video_file = word_to_video.get(word, f"{word}.mp4")
         video_path = os.path.join(VIDEO_FOLDER, video_file)
-        
-        if os.path.exists(video_path):  # Check if the file exists
-            video_list.append(f"https://msteams-2.onrender.com/videos/{video_file}")  # Local URL
+
+        if os.path.exists(video_path):
+            # ✅ Fix Render URL
+            video_list.append(f"https://msteams-2.onrender.com/videos/{video_file}")
 
     if not video_list:
         return jsonify({"error": "No matching videos found"}), 404
