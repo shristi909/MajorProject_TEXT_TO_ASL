@@ -67,7 +67,9 @@ const App = () => {
     setCurrentIndex(0);
 
     try {
-      const response = await fetch("http://localhost:5000/api/speech-to-video");
+      const response = await fetch(
+        "https://msteams-2.onrender.com/api/speech-to-video"
+      );
       const data = await response.json();
 
       console.log("Backend response:", data);
