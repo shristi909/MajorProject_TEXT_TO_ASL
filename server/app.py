@@ -77,18 +77,13 @@
 # if __name__ == "__main__":
 #     speech_to_text()
 
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-import azure.cognitiveservices.speech as speechsdk
 import os
 import json
 
 app = Flask(__name__)
 CORS(app, origins='*')
-
-# Azure Credentials
-speech_key = "EoZRBDWpS12UUXeG9fPIAnpyriwHRAjnGHLLEHV7UYxVpyxIFF7HJQQJ99BBACGhslBXJ3w3AAAYACOG9r75"
-service_region = "centralindia"
 
 # Path to video folder
 VIDEO_FOLDER = os.path.join(os.getcwd(), "videos")
@@ -103,32 +98,17 @@ if os.path.exists(MAPPING_FILE):
 else:
     word_to_video = {}
 
-def recognize_speech():
-    """Convert speech to text using Azure Speech Service."""
-    speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
-    audio_config = speechsdk.AudioConfig(use_default_microphone=True)
-    recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
-
-    print("🎤 Listening for speech...")
-    result = recognizer.recognize_once()
-
-    if result.reason == speechsdk.ResultReason.RecognizedSpeech:
-        print(f"✅ Recognized: {result.text}")
-        return result.text.lower()
-    
-    print("❌ Speech not recognized")
-    return None
-
 @app.route('/')
 def home():
     return jsonify({"message": "Welcome to the ASL Translation API!"})
 
-@app.route('/api/speech-to-video', methods=['GET'])
+@app.route('/api/speech-to-video', methods=['POST'])
 def speech_to_video():
-    text = recognize_speech()
-    
+    data = request.get_json()
+    text = data.get("text", "").lower()
+
     if not text:
-        return jsonify({"error": "Speech not recognized"}), 400
+        return jsonify({"error": "No text provided"}), 400
 
     words = text.split()
     video_list = []
@@ -138,7 +118,7 @@ def speech_to_video():
         video_path = os.path.join(VIDEO_FOLDER, video_file)
         
         if os.path.exists(video_path):  # Check if the file exists
-            video_list.append(f"https://msteams-2.onrender.com/videos/{video_file}")
+            video_list.append(f"http://localhost:5000/videos/{video_file}")  # Local URL
 
     if not video_list:
         return jsonify({"error": "No matching videos found"}), 404
