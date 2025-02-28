@@ -90,8 +90,10 @@ CORS(app, origins='*')
 speech_key = "EoZRBDWpS12UUXeG9fPIAnpyriwHRAjnGHLLEHV7UYxVpyxIFF7HJQQJ99BBACGhslBXJ3w3AAAYACOG9r75"
 service_region = "centralindia"
 
-# Correct path to videos folder inside backend
+# Path to video folder
 VIDEO_FOLDER = os.path.join(os.getcwd(), "videos")
+if not os.path.exists(VIDEO_FOLDER):
+    os.makedirs(VIDEO_FOLDER)
 
 # Load word-to-video mapping
 MAPPING_FILE = os.path.join(os.getcwd(), "backend", "video_mapping.json")
@@ -102,14 +104,19 @@ else:
     word_to_video = {}
 
 def recognize_speech():
-    """Converts speech to text using Azure Speech Service."""
+    """Convert speech to text using Azure Speech Service."""
     speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
     audio_config = speechsdk.AudioConfig(use_default_microphone=True)
     recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
 
+    print("🎤 Listening for speech...")
     result = recognizer.recognize_once()
+
     if result.reason == speechsdk.ResultReason.RecognizedSpeech:
+        print(f"✅ Recognized: {result.text}")
         return result.text.lower()
+    
+    print("❌ Speech not recognized")
     return None
 
 @app.route('/')
@@ -119,26 +126,29 @@ def home():
 @app.route('/api/speech-to-video', methods=['GET'])
 def speech_to_video():
     text = recognize_speech()
+    
     if not text:
         return jsonify({"error": "Speech not recognized"}), 400
 
-    # Find matching video filenames
     words = text.split()
-    video_list = [word_to_video.get(word, f"{word}.mp4") for word in words]
-    video_list = [v for v in video_list if os.path.exists(os.path.join(VIDEO_FOLDER, v))]  # Ensure files exist
+    video_list = []
+
+    for word in words:
+        video_file = word_to_video.get(word, f"{word}.mp4")  # Get mapped video or default to word.mp4
+        video_path = os.path.join(VIDEO_FOLDER, video_file)
+        
+        if os.path.exists(video_path):  # Check if the file exists
+            video_list.append(f"http://localhost:5000/videos/{video_file}")
 
     if not video_list:
         return jsonify({"error": "No matching videos found"}), 404
 
-    return jsonify({
-        "text": text,
-        "videos": [f"http://localhost:5000/videos/{v}" for v in video_list]
-    })
+    return jsonify({"text": text, "videos": video_list})
 
-@app.route("/videos/<filename>")
+@app.route("/videos/<path:filename>")
 def serve_video(filename):
-    """Serve ASL videos from the videos folder."""
-    return send_from_directory(VIDEO_FOLDER, filename)
+    """Serve ASL videos from the 'videos' folder."""
+    return send_from_directory(VIDEO_FOLDER, filename, as_attachment=False)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
