@@ -80,7 +80,7 @@ const App = () => {
       // Send text to backend
       try {
         const response = await fetch(
-          "http://localhost:5000/api/speech-to-video",
+          "https://msteams-2.onrender.com/api/speech-to-video",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
