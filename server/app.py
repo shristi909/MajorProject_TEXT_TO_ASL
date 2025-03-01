@@ -118,8 +118,8 @@ def speech_to_video():
         video_path = os.path.join(VIDEO_FOLDER, video_file)
 
         if os.path.exists(video_path):
-            # ✅ Fix Render URL
-            video_list.append(f"https://msteams-2.onrender.com/videos/{video_file}")
+            # ✅ Fix for Local Development
+            video_list.append(f"http://localhost:5000/videos/{video_file}")
 
     if not video_list:
         return jsonify({"error": "No matching videos found"}), 404
