@@ -1,0 +1,75 @@
+.asl-page {
+  background-color: white;
+  min-height: 100vh;
+  color: #1e2a4a;
+  font-family: sans-serif;
+}
+
+.navbar {
+  border-bottom: 1px solid #e5e7eb;
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1e2a4a;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.main-section {
+  text-align: center;
+  padding: 64px 16px;
+}
+
+.main-section h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 32px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.image-container img {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.description {
+  font-size: 1.125rem;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.enter-button {
+  display: inline-block;
+  background-color: #1e2a4a;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.enter-button:hover {
+  background-color: #15203a;
+}
