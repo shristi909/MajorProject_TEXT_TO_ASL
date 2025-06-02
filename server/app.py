@@ -12,9 +12,12 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 def home():
     return "✅ Flask ASL Speech-to-Video API is running!"
 
-# Azure Speech Service credentials
-speech_key = "EoZRBDWpS12UUXeG9fPIAnpyriwHRAjnGHLLEHV7UYxVpyxIFF7HJQQJ99BBACGhslBXJ3w3AAAYACOG9r75"
-service_region = "centralindia"
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+speech_key = os.getenv("AZURE_SPEECH_KEY")
+service_region = os.getenv("AZURE_REGION")
 
 # Video storage path
 VIDEO_FOLDER = os.path.join(os.getcwd(), "videos")
