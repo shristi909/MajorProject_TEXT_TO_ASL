@@ -6,7 +6,6 @@ This project enhances accessibility by integrating **American Sign Language (ASL
 
 - `frontend/` – React-based meeting UI  
 - `server/` – Flask backend using Azure Speech-to-Text  
-- `videos/` – ASL video clips (words and letters)
 
 ## 🚀 How to Run
 
