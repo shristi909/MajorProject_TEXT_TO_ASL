@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-
 # Clone or navigate to your project directory first
-
-=======
 
 # 🧏‍♂️ ASL Integration for Online Meeting Platforms
 
@@ -24,8 +20,7 @@ This project integrates ASL interpretation into video conferencing platforms (li
 
 ## 🚀 Quick Start (One Terminal Setup)
 
-```bash
->>>>>>> fc6b8bb (Update README with setup instructions and screenshots)
+````bash
 # ---------- SETUP BACKEND ----------
 cd server
 python -m venv venv
@@ -35,22 +30,14 @@ pip install -r requirements.txt || pip install flask flask-cors azure-cognitives
 echo "AZURE_SPEECH_KEY=your_api_key" >> .env
 echo "AZURE_SERVICE_REGION=your_service_region" >> .env
 
-<<<<<<< HEAD
 # Start the backend server
-=======
-# Start the Flask server in background
->>>>>>> fc6b8bb (Update README with setup instructions and screenshots)
 python app.py &
 
 # ---------- SETUP FRONTEND ----------
 cd ../frontend
 npm install
 npm run start
-<<<<<<< HEAD
-=======
-```
 
----
 
 ## 🔌 API Configuration
 
@@ -59,7 +46,7 @@ In `server/.env`, make sure the following variables are set:
 ```env
 AZURE_SPEECH_KEY=your_api_key
 AZURE_SERVICE_REGION=your_service_region
-```
+````
 
 ---
 
@@ -75,4 +62,4 @@ AZURE_SERVICE_REGION=your_service_region
 
 ## 📹 Project Working
 
-[Click to watch the demo](working.mp4)
+[Click to watch the working](working.mp4)
