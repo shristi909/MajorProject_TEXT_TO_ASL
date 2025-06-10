@@ -62,4 +62,4 @@ AZURE_SERVICE_REGION=your_service_region
 
 ## 📹 Project Working
 
-[Click to watch the working](working.mp4)
+[Click to watch the working](/working.mp4)
