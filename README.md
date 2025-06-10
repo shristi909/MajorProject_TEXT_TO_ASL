@@ -1,38 +1,18 @@
- ASL Integration for Online Meeting Platforms
-Enhancing accessibility by converting speech to American Sign Language (ASL) in real-time
-This project integrates ASL interpretation into video conferencing platforms (like Microsoft Teams) using Azure Speech-to-Text and a React-based interface.
+# Clone or navigate to your project directory first
 
-📁 Project Structure
-.
-├── frontend/     # React meeting UI with ASL video rendering
-├── server/       # Flask backend (uses Azure Speech-to-Text API)
-└── README.md
-
-🚀 Quick Start
-🔙 Backend (Flask)
-Navigate to the server directory:
+# ---------- SETUP BACKEND ----------
 cd server
+python -m venv venv
+pip install -r requirements.txt || pip install flask flask-cors azure-cognitiveservices-speech
 
-Install dependencies:
-pip install -r requirements.txt
-Or install manually:
-pip install flask flask-cors azure-cognitiveservices-speech
+# Set up environment variables
+echo "AZURE_SPEECH_KEY=your_api_key" >> .env
+echo "AZURE_SERVICE_REGION=your_service_region" >> .env
 
-Run the Flask server:
-python app.py
-Server will run at: http://localhost:5000
+# Start the backend server
+python app.py &
 
-🎛 Frontend (React)
-Open a new terminal and navigate to the frontend directory:
-
-cd frontend
-Install dependencies:
+# ---------- SETUP FRONTEND ----------
+cd ../frontend
 npm install
-Start the development server:
 npm run start
-App will open at: http://localhost:3000
-
-🔌 API Configuration
-Create a .env file in the server/ directory and add the following:
-AZURE_SPEECH_KEY=your_api_key
-AZURE_SERVICE_REGION=your_service_region
