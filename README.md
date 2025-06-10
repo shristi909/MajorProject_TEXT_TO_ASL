@@ -54,11 +54,11 @@ AZURE_SERVICE_REGION=your_service_region
 
 ### 🔵 ASL Integrated Meeting UI
 
-![Meeting UI Screenshot](1.png)
+![Meeting UI Screenshot](/1.png)
 
 ### 🔴 Real-time ASL Interpretation
 
-![Real-time ASL](2.png)
+![Real-time ASL](/2.png)
 
 ## 📹 Project Working
 
