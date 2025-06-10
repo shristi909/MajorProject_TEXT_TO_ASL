@@ -11,7 +11,8 @@ This project enhances accessibility by integrating **American Sign Language (ASL
 
 ### Backend (Flask)
 cd server
-pip install -r requirements.txt  # or manually install flask, flask-cors, azure-cognitiveservices-speech
+pip install -r requirements.txt  
+or manually install flask, flask-cors, azure-cognitiveservices-speech
 python app.py
 
 ### Frontend 
