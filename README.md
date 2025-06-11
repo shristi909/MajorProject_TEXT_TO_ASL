@@ -1,5 +1,3 @@
-# Clone or navigate to your project directory first
-
 # 🧏‍♂️ ASL Integration for Online Meeting Platforms
 
 **Enhancing accessibility by converting speech to American Sign Language (ASL) in real-time**  
